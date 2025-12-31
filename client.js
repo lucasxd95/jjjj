@@ -105,6 +105,7 @@ client.on('error', (err) => {
 function scheduleNextFrame() {
   if (frameIndex >= CLIENT_FRAMES_HEX.length) {
     console.log('All captured frames sent.');
+    client.end();
     return;
   }
   setTimeout(sendFrame, FRAME_DELAY_MS);
