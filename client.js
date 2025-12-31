@@ -20,6 +20,10 @@ const SERVER_PORT = Number(process.env.SERVER_PORT || 4000);
 const FRAME_DELAY_MS = Number(process.env.FRAME_DELAY_MS || 25);
 const SEND_ON_CONNECT = process.env.SEND_ON_CONNECT === '1';
 
+if (Number.isNaN(SERVER_PORT) || SERVER_PORT <= 0 || SERVER_PORT > 65535) {
+  throw new Error('Invalid SERVER_PORT; expected an integer between 1 and 65535');
+}
+
 const hex = (text) => text.replace(/\s+/g, '');
 
 // Hex-encoded payloads observed from client -> server.
@@ -86,7 +90,7 @@ client.on('error', (err) => {
     try {
       client.destroy();
     } catch (_) {
-      // ignore cleanup errors
+      console.error('Cleanup error:', _.message);
     }
   }
   process.exitCode = 1;
@@ -105,11 +109,14 @@ function sendFrame() {
   const buf = Buffer.from(frameHex, 'hex');
   const writeOk = client.write(buf);
   console.log(`Sent frame ${frameIndex + 1}/${CLIENT_FRAMES_HEX.length} (${buf.length} bytes)`);
-  frameIndex += 1;
+  const advance = () => {
+    frameIndex += 1;
+    scheduleNextFrame();
+  };
   if (!writeOk) {
     console.warn('Write buffer is full; waiting for drain before sending next frame.');
-    client.once('drain', scheduleNextFrame);
+    client.once('drain', advance);
   } else {
-    scheduleNextFrame();
+    advance();
   }
 }
