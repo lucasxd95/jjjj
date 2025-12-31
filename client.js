@@ -23,6 +23,9 @@ const SEND_ON_CONNECT = process.env.SEND_ON_CONNECT === '1';
 if (Number.isNaN(SERVER_PORT) || SERVER_PORT <= 0 || SERVER_PORT > 65535) {
   throw new Error('Invalid SERVER_PORT; expected an integer between 1 and 65535');
 }
+if (Number.isNaN(FRAME_DELAY_MS) || FRAME_DELAY_MS < 0) {
+  throw new Error('Invalid FRAME_DELAY_MS; expected a non-negative number');
+}
 
 const hex = (text) => text.replace(/\s+/g, '');
 
