@@ -20,7 +20,7 @@ Environment variables:
 | `SERVER_HOST`    | `54.233.229.27` | Target host discovered in the capture                 |
 | `SERVER_PORT`    | `4000`          | Target port from the capture                          |
 | `FRAME_DELAY_MS` | `25`            | Delay between sending captured frames                 |
-| `SEND_ON_CONNECT`| `0`             | Set to `1` to send frames immediately on connect      |
+| `SEND_ON_CONNECT`| `0`             | Set to `1` to send frames immediately on connect.     |
 
 By default the client waits for the first server packet before sending the
 captured frames in the same order observed in the PCAP. All incoming data is

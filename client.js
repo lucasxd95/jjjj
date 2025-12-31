@@ -27,6 +27,9 @@ if (Number.isNaN(FRAME_DELAY_MS) || FRAME_DELAY_MS < 0) {
   throw new Error('Invalid FRAME_DELAY_MS; expected a non-negative number');
 }
 
+/**
+ * Remove whitespace so multiline hex strings can be joined safely.
+ */
 const hex = (text) => text.replace(/\s+/g, '');
 
 // Hex-encoded payloads observed from client -> server.
