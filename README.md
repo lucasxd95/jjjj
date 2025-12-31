@@ -1,6 +1,6 @@
 # Node TCP replay client
 
-This repository only contained a stripped ARM64 shared object (`libgojni.so`)
+This repository only contains a stripped ARM64 shared object (`libgojni.so`)
 and a short packet capture. The capture shows a TCP session from the client to
 `54.233.229.27:4000` with four client-originated payloads. A tiny Node script
 is included to replay those frames so you can interact with the same server
